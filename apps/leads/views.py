@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from apps.leads.forms import LeadForm
 from apps.leads.service import LeadService
 
 _service = LeadService()
@@ -10,10 +11,14 @@ _service = LeadService()
 @csrf_exempt
 def capture_lead(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        phone = request.POST.get("phone")
-        interest = request.POST.get("interest")
+        form = LeadForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+        name = form.cleaned_data['name']
+        email = form.cleaned_data['email']
+        phone = form.cleaned_data['phone']
+        interest = form.cleaned_data['interest']
 
         rdstation_uuid = _service.send_lead_to_rd_station(
             name,
@@ -35,6 +40,9 @@ def capture_lead(request):
                 "Formulário enviado com algumas pendências de integração!"
             )
 
-        _service.create_leads_local(name, email, phone, interest)
+    form = LeadForm()
+    context = {
+        'form': form,
+    }
 
-    return render(request, "capture.html")
+    return render(request, "capture.html", context)
