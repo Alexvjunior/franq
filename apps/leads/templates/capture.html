@@ -3,15 +3,18 @@
 
 <head>
     <title>Capture Lead</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
 </head>
 
 <body>
+
+    <div class="container"></div>
 
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
         <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-        {% endfor %}
+            {% endfor %}
     </ul>
     {% endif %}
 
@@ -19,17 +22,30 @@
 
     <form method="POST">
         {% csrf_token %}
+        <div class="mb-3"></div>
         {{ form.name.label_tag }}
         {{ form.name }}
+        </div>
+        <div class="mb-3"></div>
         {{ form.email.label_tag }}
         {{ form.email }}
+        </div>
+        <div class="mb-3"></div>
         {{ form.phone.label_tag }}
         {{ form.phone }}
+        </div>
+        <div class="mb-3"></div>
         {{ form.interest.label_tag }}
         {{ form.interest }}
-        <!-- ... -->
-        <input type="submit" value="Submit" >
+        </div>
+        <div class="mb-3"></div>
+        <input type="submit" value="Submit">
+        </div>
     </form>
+
+    </div>
+    <!-- Inclua os arquivos JavaScript do Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
