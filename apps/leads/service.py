@@ -1,4 +1,3 @@
-from apps.leads.models import Lead
 from common.pipedriver import Pipedriver
 from common.rd_station import RDStation
 

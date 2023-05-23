@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from apps.leads.service import LeadService
 from apps.leads.forms import LeadForm
+from apps.leads.service import LeadService
 
 _service = LeadService()
 
@@ -14,7 +14,7 @@ def capture_lead(request):
         form = LeadForm(request.POST)
         if form.is_valid():
             form.save()
-            
+
         name = form.cleaned_data['name']
         email = form.cleaned_data['email']
         phone = form.cleaned_data['phone']
